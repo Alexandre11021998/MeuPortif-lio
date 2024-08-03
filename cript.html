@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIPTOGRAFADOR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(216, 190, 106);
+            margin: 0;
+        }
+        .container {
+            background-color: rgb(34, 139, 34);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border:navy;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: whitesmoke;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        <h1>CRIPTOGRAFADOR</h1>
+        <textarea id="inputText" placeholder="Digite sua mensagem aqui..."></textarea>
+        <input type="number" id="shift" placeholder="Shift" value="3" min="1" max="25">
+        <button onclick="encrypt()">CRIPTOGRAFAR</button>
+        <h2>Texto Criptografado:</h2>
+        <textarea id="outputText" readonly></textarea>
+    </div>
+    <script>
+        function encrypt(){
+            const inputText = document.getElementById('inputText').value;
+            const shift = parseInt(document.getElementById('shift').value);
+            let outputText = '';
+
+            for (let i = 0; i < inputText.length; i++){
+                let char = inputText[i];
+
+                if (char.match(/[a-z]/i)){
+                    let code = inputText.charCodeAt(i);
+
+                    if (code >= 65 && code <= 90){
+                        char = String.fromCharCode (((code - 65 + shift) % 26) + 65);
+                    } else if (code >= 97 && code <= 122) {
+                        char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                    }
+                }
+                outputText += char;
+            }
+
+        document.getElementById('outputText').value = outputText;
+        }
+    </script>
+    </body>
+</body>
+</html>
